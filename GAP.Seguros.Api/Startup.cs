@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GAP.Seguros.Data.Models;
+using GAP.Seguros.Data.Repository;
+using GAP.Seguros.Data.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +31,13 @@ namespace GAP.Seguros.Api
         {
             services.AddDbContextPool<SegurosDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("SegurosConnection"), x => x.MigrationsAssembly("GAP.Seguros.Data")));
+            
+            services.AddScoped<IPolizaRepository, PolizaRepository>();
+            services.AddScoped<IClientePolizaRepository, ClientePolizaRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IPolizaTiposCubrimientoRepository, PolizaTiposCubrimientoRepository>();
+            services.AddScoped<ITipoCubrimientoRepository, TipoCubrimientoRepository>();
+            services.AddScoped<ITipoRiesgoRepository, TipoRiesgoRepository>();
 
             services.AddControllers();
         }

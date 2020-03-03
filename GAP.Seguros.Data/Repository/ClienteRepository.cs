@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GAP.Seguros.Data.Repository
 {
-    public class ClienteRepository : IClientePolizaRepository
+    public class ClienteRepository : IClienteRepository
     {
         private readonly SegurosDbContext context;
 
@@ -14,27 +14,28 @@ namespace GAP.Seguros.Data.Repository
         {
             this.context = context;
         }
-        public ClientePoliza Add(ClientePoliza clientePoliza)
+
+        public Cliente Add(Cliente cliente)
         {
             throw new NotImplementedException();
         }
 
-        public ClientePoliza Delete(short idClientePoliza)
+        public Cliente Delete(int idCliente)
         {
             throw new NotImplementedException();
         }
 
-        public ClientePoliza Get(short idClientePoliza)
+        public Cliente Get(int idCliente)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ClientePoliza> GetAll()
+        public IEnumerable<Cliente> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public ClientePoliza Update(ClientePoliza clientePoliza)
+        public Cliente Update(Cliente cliente)
         {
             throw new NotImplementedException();
         }
