@@ -1,11 +1,11 @@
 export interface TipoRiesgo
 {
 		idTipoRiesgo: number ;
-		tipoRiesgo: string ;
+		descTipoRiesgo: string ;
 }
 
 export interface TipoCubrimiento
 {
 		idTipoCubrimiento: number ;
-		tipoCubrimiento: string ;
+		descCubrimiento: string ;
 }

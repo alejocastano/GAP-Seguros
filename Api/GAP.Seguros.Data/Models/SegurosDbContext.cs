@@ -109,7 +109,7 @@ namespace GAP.Seguros.Data.Models
 
                 entity.Property(e => e.DescCubrimiento)
                     .IsRequired()
-                    .HasColumnName("tipoCubrimiento")
+                    .HasColumnName("descCubrimiento")
                     .HasMaxLength(20)
                     .IsUnicode(false);
             });
@@ -123,7 +123,7 @@ namespace GAP.Seguros.Data.Models
                     .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DescTipoRiesgo)
-                    .HasColumnName("tipoRiesgo")
+                    .HasColumnName("descTipoRiesgo")
                     .HasMaxLength(10)
                     .IsUnicode(false);
             });

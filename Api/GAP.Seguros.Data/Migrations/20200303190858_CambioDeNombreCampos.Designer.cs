@@ -4,14 +4,16 @@ using GAP.Seguros.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GAP.Seguros.Data.Migrations
 {
     [DbContext(typeof(SegurosDbContext))]
-    partial class SegurosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200303190858_CambioDeNombreCampos")]
+    partial class CambioDeNombreCampos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace GAP.Seguros.Data.Migrations
 
                     b.Property<string>("DescCubrimiento")
                         .IsRequired()
-                        .HasColumnName("descCubrimiento")
+                        .HasColumnName("DescCubrimiento")
                         .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
                         .IsUnicode(false);
@@ -213,7 +215,7 @@ namespace GAP.Seguros.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DescTipoRiesgo")
-                        .HasColumnName("descTipoRiesgo")
+                        .HasColumnName("DescTipoRiesgo")
                         .HasColumnType("varchar(10)")
                         .HasMaxLength(10)
                         .IsUnicode(false);

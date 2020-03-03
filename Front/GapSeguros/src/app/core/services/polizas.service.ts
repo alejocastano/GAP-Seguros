@@ -27,4 +27,18 @@ export class PolizasService extends BaseService {
     return this.http.post(this.apiUrl + poliza.idPoliza, poliza, { headers: this.headers });
   }
 
+  inicializarPoliza() {
+    const poliza: Poliza = {
+      idPoliza: 0,
+      nombre: null,
+      inicioVigencia: null,
+      periodoCobertura: null,
+      precio: null,
+      cobertura: null,
+      idTipoRiesgo: null,
+      IdTipoCubrimiento: null,
+    };
+    return poliza;
+  }
+
 }
