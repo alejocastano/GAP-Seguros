@@ -1,8 +1,10 @@
 ﻿using GAP.Seguros.Data.Models;
 using GAP.Seguros.Data.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository
 {
@@ -14,29 +16,37 @@ namespace GAP.Seguros.Data.Repository
         {
             this.context = context;
         }
-        public Poliza Add(Poliza poliza)
+
+        public async Task<Poliza> Add(Poliza poliza)
         {
-            throw new NotImplementedException();
+            context.Poliza.Add(poliza);
+            await context.SaveChangesAsync();
+            return poliza;
         }
 
-        public Poliza Delete(int idPoliza)
+        public async Task<Poliza> Delete(Poliza poliza)
         {
-            throw new NotImplementedException();
+            context.Poliza.Remove(poliza);
+            await context.SaveChangesAsync();
+            return poliza;
         }
 
-        public Poliza Get(int idPoliza)
+        public async Task<Poliza> Get(int idPoliza)
         {
-            throw new NotImplementedException();
+            return await context.Poliza.FirstOrDefaultAsync(x => x.IdPoliza == idPoliza);
         }
 
-        public IEnumerable<Poliza> GetAll()
+        public async Task<IEnumerable<Poliza>> GetAll()
         {
-            throw new NotImplementedException();
+            return await context.Poliza.ToListAsync();
         }
 
-        public Poliza Update(Poliza poliza)
+        public async Task<Poliza> Update(Poliza poliza)
         {
-            throw new NotImplementedException();
+            context.Entry(poliza).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return poliza;
+
         }
     }
 }

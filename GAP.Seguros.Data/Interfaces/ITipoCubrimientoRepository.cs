@@ -1,13 +1,12 @@
 ﻿using GAP.Seguros.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository.Interfaces
 {
     public interface ITipoCubrimientoRepository
     {
-        IEnumerable<TipoCubrimiento> GetAll();
+        Task<IEnumerable<TipoCubrimiento>> GetAll();
         TipoCubrimiento Get(byte idTipoCubrimiento);
         TipoCubrimiento Add(TipoCubrimiento TipoCubrimiento);
         TipoCubrimiento Update(TipoCubrimiento TipoCubrimiento);

@@ -1,8 +1,9 @@
 ﻿using GAP.Seguros.Data.Models;
 using GAP.Seguros.Data.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository
 {
@@ -28,15 +29,16 @@ namespace GAP.Seguros.Data.Repository
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<TipoRiesgo> GetAll()
+        public async Task<IEnumerable<TipoRiesgo>> GetAll()
         {
-            return context.TipoRiesgo;
+            return await context.TipoRiesgo.ToListAsync();
         }
 
         public TipoRiesgo Update(TipoRiesgo TipoRiesgo)
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

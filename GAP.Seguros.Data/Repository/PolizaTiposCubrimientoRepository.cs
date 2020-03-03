@@ -2,7 +2,6 @@
 using GAP.Seguros.Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GAP.Seguros.Data.Repository
 {
