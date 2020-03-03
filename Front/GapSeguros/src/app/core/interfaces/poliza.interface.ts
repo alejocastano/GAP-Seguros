@@ -7,5 +7,5 @@ export interface Poliza
 		precio: number ;
 		cobertura: number ;
 		idTipoRiesgo: number ;
-		IdTipoCubrimiento: number ;
+		idTipoCubrimiento: number ;
 }

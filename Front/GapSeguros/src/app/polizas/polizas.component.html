@@ -4,9 +4,18 @@
       <h3>Listado de polizas registradas</h3>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza">
-        Agregar una nueva poliza
-      </button>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza">
+            Agregar una nueva poliza
+          </button>
+        </div>
+        <br>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-12">
       <div class='table-responsive'>
         <table class='table'>
           <thead class='text-primary'>
@@ -16,7 +25,7 @@
               <th>Periodo de cobertura</th>
               <th>Valor</th>
               <th>% Cobertura</th>
-              <th class='text-right'>Acciones</th>
+              <th class='text-right'></th>
             </tr>
           </thead>
           <tbody>
@@ -28,12 +37,11 @@
               <td>{{item.precio}}</td>
               <td>{{item.cobertura}}</td>
               <td class=''>
-                <button mat-raised-button type='button' class='btn btn-info' data-toggle='modal' data-backdrop='static'
-                  data-keyboard='false' data-target='#modalPoliza' matTooltip='Editar Poliza'
-                  (click)='editarPoliza(item.idPoliza);'>
+                <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
+                  data-keyboard='false' data-target='#modalPoliza' (click)='editarPoliza(item);'>
                   <i class='material-icons'>edit</i>
                 </button>
-                <button mat-raised-button type='button' class='btn btn-danger' matTooltip='Borrar Poliza'
+                <button type='button' class='btn btn-outline-danger btn-sm' data-toggle="tooltip"  title='Borrar Poliza'
                   (click)='eliminarPoliza(item.idPoliza);'>
                   <i class='material-icons'>close</i>
                 </button>
@@ -43,6 +51,8 @@
         </table>
       </div>
     </div>
+  </div>
+</div>
   </div>
 </div>
 <div class="modal fade" id="modalPoliza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -60,59 +70,57 @@
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="nombre">Nombre de la poliza</label>
-              <input name='nombre' class='form-control' [(ngModel)]='poliza.nombre' #nombre='ngModel'
-                placeholder='Nombre de la poliza' maxlength='100' required>
+              <input name='nombre' class='form-control' [(ngModel)]='poliza.nombre' #nombre='ngModel' maxlength='100' required>
             </div>
           </div>
           <div class="form-group row">
             <div class='col-sm-12'>
-              <label for="periodoCobertura">Periodo de cobertura</label>
-              <input name='inicioVigencia' class='form-control' [(ngModel)]='poliza.inicioVigencia'
-                #inicioVigencia='ngModel' type="date" placeholder='inicioVigencia' required>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class='col-sm-12'>
-              <label for="periodoCobertura">Periodo de cobertura</label>
-              <input name='periodoCobertura' class='form-control' [(ngModel)]='poliza.periodoCobertura'
-                #periodoCobertura='ngModel' type='number' placeholder='periodoCobertura' required>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class='col-sm-12'>
-              <label for="precio">Precio de la poliza</label>
-              <input name='precio' class='form-control' [(ngModel)]='poliza.precio' #precio='ngModel' type='number'
-                placeholder='precio'>
+              <label for="idTipoCubrimiento">Tipo de cubrimiento</label>
+              <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="poliza.idTipoCubrimiento">
+                <option *ngFor="let item of listaTipoCubrimiento" [value]="item.idTipoCubrimiento">
+                  {{item.descCubrimiento}}
+                </option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="cobertura">% de cobertura</label>
               <input name='cobertura' class='form-control' [(ngModel)]='poliza.cobertura' #cobertura='ngModel'
-                type='number' placeholder='cobertura' required>
+                type='number' required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class='col-sm-12'>
+              <label for="periodoCobertura">Inicio de vigencia</label>
+              <input name='inicioVigencia' class='form-control' [(ngModel)]='poliza.inicioVigencia'
+                #inicioVigencia='ngModel' type="date" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class='col-sm-12'>
+              <label for="periodoCobertura">Periodo de cobertura definido en meses</label>
+              <input name='periodoCobertura' class='form-control' [(ngModel)]='poliza.periodoCobertura'
+                #periodoCobertura='ngModel' type='number' required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class='col-sm-12'>
+              <label for="precio">Precio de la poliza</label>
+              <input name='precio' class='form-control' [(ngModel)]='poliza.precio' #precio='ngModel' type='number'>
             </div>
           </div>
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="idTipoRiesgo">Tipo de riesgo</label>
               <select class="form-control" name="idTipoRiesgo" [(ngModel)]="poliza.idTipoRiesgo">
-                <option *ngFor="let item of listaTipoRiesgo" [value]="poliza.idTipoRiesgo">
+                <option *ngFor="let item of listaTipoRiesgo" [value]="item.idTipoRiesgo">
                   {{item.descTipoRiesgo}}
                 </option>
               </select>
             </div>
           </div>
-          <div class="form-group row">
-            <div class='col-sm-12'>
-              <label for="IdTipoCubrimiento">Tipo de cubrimiento</label>
-              <select class="form-control" name="IdTipoCubrimiento" [(ngModel)]="poliza.IdTipoCubrimiento">
-                <option *ngFor="let item of listaTipoCubrimiento" [value]="poliza.IdTipoCubrimiento">
-                  {{item.descCubrimiento}}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class='col'>
+          <!-- <div class='col'>
             <div class='row justify-content-center'>
               <button class='btn btn-info' (click)='guardarPoliza()' [disabled]='!formPoliza.valid'
                 data-dismiss='modal'>Guardar</button>
@@ -122,11 +130,11 @@
                 no se permitirá
                 guardar hasta que estos sean diligenciados.</span>
             </div>
-          </div>
+          </div> -->
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)='guardarPoliza()' data-dismiss="modal" >Guardar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

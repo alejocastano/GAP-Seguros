@@ -19,12 +19,27 @@ export class PolizasService extends BaseService {
     return this.http.get(this.apiUrl + idPoliza, { headers: this.headers });
   }
 
+
+  gestionarPoliza(poliza: Poliza) {
+    poliza.idTipoCubrimiento = Number(poliza.idTipoCubrimiento);
+    poliza.idTipoRiesgo = Number(poliza.idTipoRiesgo);
+    if (poliza.idPoliza > 0) {
+      return this.putPoliza(poliza);
+    } else {
+      return this.postPoliza(poliza);
+    }
+  }
+
   postPoliza(poliza: Poliza) {
-    return this.http.post(this.apiUrl, poliza, { headers: this.headers });
+    return this.http.post(this.apiUrl, JSON.stringify(poliza), { headers: this.headers });
   }
 
   putPoliza(poliza: Poliza) {
-    return this.http.post(this.apiUrl + poliza.idPoliza, poliza, { headers: this.headers });
+    return this.http.put(this.apiUrl + poliza.idPoliza, poliza, { headers: this.headers });
+  }
+
+  deletePoliza(idPoliza: number) {
+    return this.http.delete(this.apiUrl + idPoliza, { headers: this.headers });
   }
 
   inicializarPoliza() {
@@ -35,8 +50,8 @@ export class PolizasService extends BaseService {
       periodoCobertura: null,
       precio: null,
       cobertura: null,
-      idTipoRiesgo: null,
-      IdTipoCubrimiento: null,
+      idTipoRiesgo: 0,
+      idTipoCubrimiento: 0,
     };
     return poliza;
   }
