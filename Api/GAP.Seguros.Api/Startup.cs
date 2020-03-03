@@ -38,6 +38,15 @@ namespace GAP.Seguros.Api
             services.AddScoped<ITipoCubrimientoRepository, TipoCubrimientoRepository>();
             services.AddScoped<ITipoRiesgoRepository, TipoRiesgoRepository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    /*.AllowCredentials()*/);
+            });
+
             services.AddControllers();
         }
 
@@ -53,7 +62,10 @@ namespace GAP.Seguros.Api
 
             app.UseRouting();
 
+            app.UseCors("AllowAnyOrigin");
+
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
