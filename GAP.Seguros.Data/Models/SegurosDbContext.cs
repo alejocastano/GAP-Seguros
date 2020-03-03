@@ -14,7 +14,6 @@ namespace GAP.Seguros.Data.Models
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<ClientePoliza> ClientePoliza { get; set; }
         public virtual DbSet<Poliza> Poliza { get; set; }
-        public virtual DbSet<PolizaTiposCubrimiento> PolizaTiposCubrimiento { get; set; }
         public virtual DbSet<TipoCubrimiento> TipoCubrimiento { get; set; }
         public virtual DbSet<TipoRiesgo> TipoRiesgo { get; set; }
 
@@ -93,27 +92,11 @@ namespace GAP.Seguros.Data.Models
                     .WithMany(p => p.Poliza)
                     .HasForeignKey(d => d.IdTipoRiesgo)
                     .HasConstraintName("FK_Poliza_TipoRiesgo");
-            });
-
-            modelBuilder.Entity<PolizaTiposCubrimiento>(entity =>
-            {
-                entity.HasKey(e => e.IdPolizaTiposCubrimiento);
-
-                entity.Property(e => e.IdPolizaTiposCubrimiento).HasColumnName("idPolizaTiposCubrimiento");
-
-                entity.Property(e => e.IdPoliza).HasColumnName("idPoliza");
-
-                entity.Property(e => e.IdTipoCubrimiento).HasColumnName("idTipoCubrimiento");
-
-                entity.HasOne(d => d.IdPolizaNavigation)
-                    .WithMany(p => p.PolizaTiposCubrimiento)
-                    .HasForeignKey(d => d.IdPoliza)
-                    .HasConstraintName("FK_PolizaTiposCubrimiento_Poliza");
 
                 entity.HasOne(d => d.IdTipoCubrimientoNavigation)
-                    .WithMany(p => p.PolizaTiposCubrimiento)
+                    .WithMany(p => p.Poliza)
                     .HasForeignKey(d => d.IdTipoCubrimiento)
-                    .HasConstraintName("FK_PolizaTiposCubrimiento_TipoCubrimiento");
+                    .HasConstraintName("FK_Poliza_TipoCubrimiento");
             });
 
             modelBuilder.Entity<TipoCubrimiento>(entity =>

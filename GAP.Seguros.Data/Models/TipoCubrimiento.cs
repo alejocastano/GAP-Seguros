@@ -7,12 +7,12 @@ namespace GAP.Seguros.Data.Models
     {
         public TipoCubrimiento()
         {
-            PolizaTiposCubrimiento = new HashSet<PolizaTiposCubrimiento>();
+            Poliza = new HashSet<Poliza>();
         }
 
         public byte IdTipoCubrimiento { get; set; }
         public string DescCubrimiento { get; set; }
 
-        public virtual ICollection<PolizaTiposCubrimiento> PolizaTiposCubrimiento { get; set; }
+        public virtual ICollection<Poliza> Poliza { get; set; }
     }
 }

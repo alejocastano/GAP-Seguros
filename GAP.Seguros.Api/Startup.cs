@@ -35,7 +35,6 @@ namespace GAP.Seguros.Api
             services.AddScoped<IPolizaRepository, PolizaRepository>();
             services.AddScoped<IClientePolizaRepository, ClientePolizaRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<IPolizaTiposCubrimientoRepository, PolizaTiposCubrimientoRepository>();
             services.AddScoped<ITipoCubrimientoRepository, TipoCubrimientoRepository>();
             services.AddScoped<ITipoRiesgoRepository, TipoRiesgoRepository>();
 
