@@ -11,5 +11,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GAP.Seguros.Data\GAP.Seguros.Data.csproj" />
+  </ItemGroup>
+
 
 </Project>
