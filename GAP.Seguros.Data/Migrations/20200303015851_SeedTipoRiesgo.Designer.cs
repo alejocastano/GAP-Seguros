@@ -4,14 +4,16 @@ using GAP.Seguros.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GAP.Seguros.Data.Migrations
 {
     [DbContext(typeof(SegurosDbContext))]
-    partial class SegurosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200303015851_SeedTipoRiesgo")]
+    partial class SeedTipoRiesgo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,44 +44,6 @@ namespace GAP.Seguros.Data.Migrations
                     b.HasKey("IdCliente");
 
                     b.ToTable("Cliente");
-
-                    b.HasData(
-                        new
-                        {
-                            IdCliente = 1,
-                            Identificacion = "1020423358",
-                            Nombre = "Juan Perez"
-                        },
-                        new
-                        {
-                            IdCliente = 2,
-                            Identificacion = "3336655",
-                            Nombre = "Alejandra Velez"
-                        },
-                        new
-                        {
-                            IdCliente = 3,
-                            Identificacion = "4445588",
-                            Nombre = "Fernanda Uribe"
-                        },
-                        new
-                        {
-                            IdCliente = 4,
-                            Identificacion = "88899663",
-                            Nombre = "Fernando Muñoz"
-                        },
-                        new
-                        {
-                            IdCliente = 5,
-                            Identificacion = "111223344",
-                            Nombre = "Alejandro Castaño"
-                        },
-                        new
-                        {
-                            IdCliente = 6,
-                            Identificacion = "33322445",
-                            Nombre = "Luis Murcia"
-                        });
                 });
 
             modelBuilder.Entity("GAP.Seguros.Data.Models.ClientePoliza", b =>
@@ -195,33 +159,6 @@ namespace GAP.Seguros.Data.Migrations
                     b.HasKey("IdTipoCubrimiento");
 
                     b.ToTable("TipoCubrimiento");
-
-                    b.HasData(
-                        new
-                        {
-                            IdTipoCubrimiento = (byte)1,
-                            DescCubrimiento = "Terremoto"
-                        },
-                        new
-                        {
-                            IdTipoCubrimiento = (byte)2,
-                            DescCubrimiento = "Incendio"
-                        },
-                        new
-                        {
-                            IdTipoCubrimiento = (byte)3,
-                            DescCubrimiento = "Robo"
-                        },
-                        new
-                        {
-                            IdTipoCubrimiento = (byte)4,
-                            DescCubrimiento = "Pérdida"
-                        },
-                        new
-                        {
-                            IdTipoCubrimiento = (byte)5,
-                            DescCubrimiento = "Terremoto"
-                        });
                 });
 
             modelBuilder.Entity("GAP.Seguros.Data.Models.TipoRiesgo", b =>

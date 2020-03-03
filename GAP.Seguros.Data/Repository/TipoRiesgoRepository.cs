@@ -31,7 +31,7 @@ namespace GAP.Seguros.Data.Repository
 
         public IEnumerable<TipoRiesgo> GetAll()
         {
-            throw new NotImplementedException();
+            return context.TipoRiesgo;
         }
 
         public TipoRiesgo Update(TipoRiesgo TipoRiesgo)
