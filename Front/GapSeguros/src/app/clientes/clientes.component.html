@@ -1,18 +1,19 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <h3>Listado de clientes</h3>
+      <h3>Asignación de polizas a clientes</h3>
     </div>
     <div class="card-body">
-
       <div class="row">
         <div class="col-sm-12">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza">
-            Agregar una nueva poliza
-          </button>
-        </div>
-        <br>
+      <div class="alert alert-primary" role="alert">
+        <span style="display:flex ;">
+          Para gestionar las polizas del cliente de clic en el boton &nbsp; <i class='material-icons'>playlist_add</i>
+        </span>
+
       </div>
+    </div>
+  </div>
       <br/>
       <div class="row">
         <div class="col-sm-12">
@@ -22,6 +23,7 @@
             <tr>
               <th>Nombre del cliente</th>
               <th>Identificacion</th>
+              <th class="text-right">Géstion de polizas</th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +31,7 @@
 
               <td>{{item.nombre}}</td>
               <td>{{item.identificacion}}</td>
-              <td class=''>
+              <td class="text-right">
                 <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
                   data-keyboard='false' data-target='#modalAsignarPoliza' (click)='buscarPolizasCliente(item.idCliente)'>
                   <i class='material-icons'>playlist_add</i>
@@ -49,7 +51,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Poliza</h5>
+        <h5 class="modal-title">Gestionar polizas del cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -58,7 +60,7 @@
         <form class='needs-validation' #formPoliza='ngForm'>
           <div class="form-group row">
             <div class='col-sm-12'>
-              <label for="idTipoCubrimiento">Poliza a asignar</label>
+              <label for="idTipoCubrimiento">Asignar una poliza al cliente</label>
               <span style="display: flex;">
               <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="clientePoliza.idPoliza">
                 <option *ngFor="let item of listadoPolizas" [value]="item.idPoliza">
@@ -75,7 +77,7 @@
             <div class="col-sm-12">
               <div class="table-responsive">
                 <table class="table">
-                  <thead class="text-primary">
+                  <thead class="text-primary" *ngIf="listadoPolizasCliente.length != 0; else mensajeNoPolizas">
                     <tr>
                       <th>Polizas asignadas al cliente</th>
                       <th>Estado de la poliza</th>
@@ -101,6 +103,11 @@
                     </tr>
                   </tbody>
                 </table>
+                  <ng-template #mensajeNoPolizas>
+                    <div class="alert alert-primary" role="alert">
+                      El cliente no tiene polizas asignadas en el momento.
+                    </div>
+                  </ng-template>
               </div>
             </div>
           </div>

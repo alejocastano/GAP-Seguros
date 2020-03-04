@@ -19,7 +19,7 @@ export class PolizasComponent implements OnInit {
 
   constructor(private polizaService: PolizasService,
     private maestrosService: MaestrosService) {
-    this.poliza = this.polizaService.inicializarPoliza();
+    this.inicializarPoliza();
     this.llenarListadoPolizas();
     this.llenarListadoTipoRiesgo();
     this.llenarListadoTipoCubrimiento();
@@ -47,6 +47,9 @@ export class PolizasComponent implements OnInit {
     });
   }
 
+  inicializarPoliza() {
+    this.poliza = this.polizaService.inicializarPoliza();
+  }
 
   editarPoliza(poliza: Poliza) {
     this.poliza = { ...poliza };

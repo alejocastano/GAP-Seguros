@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GAP.Seguros.Business\GAP.Seguros.Business.csproj" />
     <ProjectReference Include="..\GAP.Seguros.Data\GAP.Seguros.Data.csproj" />
   </ItemGroup>
 

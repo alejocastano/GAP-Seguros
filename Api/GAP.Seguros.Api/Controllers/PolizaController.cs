@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GAP.Seguros.Data.Models;
 using GAP.Seguros.Data.Repository.Interfaces;
+using GAP.Seguros.Business;
+using System.Net;
 
 namespace GAP.Seguros.Api.Controllers
 {
@@ -16,11 +18,12 @@ namespace GAP.Seguros.Api.Controllers
     {
         private readonly SegurosDbContext _context;
         private readonly IPolizaRepository polizaRepository;
-
+        private PolizasBL polizasbl;
         public PolizaController(SegurosDbContext context,IPolizaRepository polizaRepository)
         {
             _context = context;
             this.polizaRepository = polizaRepository;
+            this.polizasbl = new PolizasBL();
         }
 
         [HttpGet]
@@ -52,7 +55,16 @@ namespace GAP.Seguros.Api.Controllers
 
             try
             {
-                await polizaRepository.Update(poliza);
+                ValidationResult result = polizasbl.ValidarRiesgoPoliza(poliza);
+                if (result.valido)
+                {
+                    await polizaRepository.Update(poliza);
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.Forbidden, result.mensaje);
+
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -65,6 +77,10 @@ namespace GAP.Seguros.Api.Controllers
                     throw;
                 }
             }
+            catch(Exception exc)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }
@@ -72,8 +88,16 @@ namespace GAP.Seguros.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Poliza>> PostPoliza(Poliza poliza)
         {
-            await polizaRepository.Add(poliza);
-            return CreatedAtAction("PostPoliza", new { id = poliza.IdPoliza }, poliza);
+            ValidationResult result = polizasbl.ValidarRiesgoPoliza(poliza);
+            if (result.valido)
+            {
+                await polizaRepository.Add(poliza);
+                return CreatedAtAction("PostPoliza", new { id = poliza.IdPoliza }, poliza);
+            }
+            else
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden, result.mensaje);
+            }
         }
 
         [HttpDelete("{id}")]

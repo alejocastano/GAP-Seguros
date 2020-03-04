@@ -7,7 +7,7 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza" (click)="inicializarPoliza()">
             Agregar una nueva poliza
           </button>
         </div>
@@ -76,7 +76,7 @@
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="idTipoCubrimiento">Tipo de cubrimiento</label>
-              <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="poliza.idTipoCubrimiento">
+              <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="poliza.idTipoCubrimiento" required>
                 <option *ngFor="let item of listaTipoCubrimiento" [value]="item.idTipoCubrimiento">
                   {{item.descCubrimiento}}
                 </option>
@@ -107,13 +107,13 @@
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="precio">Precio de la poliza</label>
-              <input name='precio' class='form-control' [(ngModel)]='poliza.precio' #precio='ngModel' type='number'>
+              <input name='precio' class='form-control' [(ngModel)]='poliza.precio' #precio='ngModel' type='number' required>
             </div>
           </div>
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="idTipoRiesgo">Tipo de riesgo</label>
-              <select class="form-control" name="idTipoRiesgo" [(ngModel)]="poliza.idTipoRiesgo">
+              <select class="form-control" name="idTipoRiesgo" [(ngModel)]="poliza.idTipoRiesgo" required>
                 <option *ngFor="let item of listaTipoRiesgo" [value]="item.idTipoRiesgo">
                   {{item.descTipoRiesgo}}
                 </option>
@@ -134,8 +134,20 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)='guardarPoliza()' data-dismiss="modal" >Guardar</button>
+        <span *ngIf="(poliza.idTipoRiesgo == 4 && poliza.cobertura > 50);else botonGuardar">
+          <div class="alert alert-danger" role="alert">
+            * El pocentaje de cubrimiento no puede ser mayor al 50% ya que el tipo de riesgo es alto
+          </div>
+
+        </span>
+        <ng-template #botonGuardar>
+          <button [disabled]="!formPoliza.valid" type="button" class="btn btn-primary" (click)='guardarPoliza()' data-dismiss="modal" >Guardar</button>
+        </ng-template>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <br>
+        <span *ngIf="!formPoliza.valid">
+          * Todos los campos deben ser diligenciados para poder guardar
+        </span>
       </div>
     </div>
   </div>
