@@ -19,10 +19,18 @@ export class ClientesService extends BaseService {
     return this.http.get(this.apiUrl + idCliente, { headers: this.headers });
   }
 
+  getPolizasByCliente(idCliente: number) {
+    return this.http.get(this.apiUrl + 'GetPolizasByCliente/' + idCliente, { headers: this.headers });
+  }
+
   postClientePoliza(clientePoliza: ClientePoliza) {
     clientePoliza.idPoliza = Number(clientePoliza.idPoliza);
-    console.log(clientePoliza);
     return this.http.post(this.apiUrl + 'PostClientePoliza', clientePoliza, { headers: this.headers });
+  }
+
+  putClientePoliza(clientePoliza: ClientePoliza) {
+    console.log(JSON.stringify(clientePoliza));
+    return this.http.put(this.apiUrl + 'PutClientePoliza/' + clientePoliza.idClientePoliza, clientePoliza, { headers: this.headers });
   }
 
   inicializarCliente() {

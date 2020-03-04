@@ -33,11 +33,49 @@ namespace GAP.Seguros.Api.Controllers
         }
 
 
+
+        [HttpGet("GetPolizasByCliente/{id}")]
+        public async Task<IEnumerable<PolizasClienteView>> GetPolizasByCliente(int id)
+        {
+            return await clientePolizaRepository.GetByCliente(id);
+        }
+
+        [HttpGet("GetPolizasCliente")]
+        public IEnumerable<PolizasClienteView> GetPolizasCliente()
+        {
+            return clientePolizaRepository.GetAll();
+        }
+
         [HttpPost("PostClientePoliza")]
         public async Task<ActionResult<ClientePoliza>> PostPoliza(ClientePoliza poliza)
         {
             await clientePolizaRepository.Add(poliza);
             return Ok();
+        }
+
+        [HttpPut("PutClientePoliza/{id}")]
+        public async Task<ActionResult<ClientePoliza>> PutClientePoliza(int id, ClientePoliza poliza)
+        {
+            if (id != poliza.IdClientePoliza)
+            {
+                return BadRequest();
+            }
+                await clientePolizaRepository.Update(poliza);
+            return Ok();
+        }
+
+        [HttpDelete("DeleteClientePoliza/{id}")]
+        public async Task<ActionResult<ClientePoliza>> DeleteClientePoliza(short id)
+        {
+            var clientePoliza = await clientePolizaRepository.Get(id);
+            if (clientePoliza == null)
+            {
+                return NotFound();
+            }
+
+            await clientePolizaRepository.Delete(clientePoliza);
+
+            return clientePoliza;
         }
 
     }

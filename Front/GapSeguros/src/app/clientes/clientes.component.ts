@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../core/services/clientes.service';
-import { Cliente, ClientePoliza } from '../core/interfaces/clientes.interface';
+import { Cliente, ClientePoliza, PolizasCliente } from '../core/interfaces/clientes.interface';
 import { Poliza } from '../core/interfaces/poliza.interface';
 import { PolizasService } from '../core/services/polizas.service';
 
@@ -14,7 +14,7 @@ export class ClientesComponent implements OnInit {
   listadoClientes: Cliente[] = [];
   listadoPolizas: Poliza[] = [];
   clientePoliza: ClientePoliza;
-
+  listadoPolizasCliente: PolizasCliente[] = [];
 
   constructor(private clientesService: ClientesService,
     private polizaService: PolizasService
@@ -39,11 +39,28 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-  AsignarPolizaCliente(data: any) {
-    this.clientesService.postClientePoliza(this.clientePoliza).subscribe(()=>{
-
+  asignarPolizaCliente() {
+    this.clientesService.postClientePoliza(this.clientePoliza).subscribe(() => {
+      this.buscarPolizasCliente(this.clientePoliza.idCliente);
     });
   }
+
+  buscarPolizasCliente(idCliente: number) {
+    this.clientePoliza.idCliente = idCliente;
+    this.clientesService.getPolizasByCliente(idCliente).subscribe((res: PolizasCliente[]) => {
+      this.listadoPolizasCliente = res;
+    });
+  }
+
+  cambiarEstadoPoliza(cp: PolizasCliente) {
+    const polizaActualizar: ClientePoliza = { idClientePoliza: cp.idClientePoliza,
+    idCliente: cp.idCliente, idPoliza: cp.idPoliza, activo: !cp.activo };
+
+    this.clientesService.putClientePoliza(polizaActualizar).subscribe(() => {
+      this.buscarPolizasCliente(polizaActualizar.idCliente);
+    });
+  }
+
   inicializarObjetos() {
     this.clientePoliza = this.clientesService.inicializarClientePoliza();
   }

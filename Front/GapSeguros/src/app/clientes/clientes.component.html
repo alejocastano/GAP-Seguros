@@ -31,7 +31,7 @@
               <td>{{item.identificacion}}</td>
               <td class=''>
                 <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
-                  data-keyboard='false' data-target='#modalAsignarPoliza' (click)='this.clientePoliza.idCliente = item.idCliente'>
+                  data-keyboard='false' data-target='#modalAsignarPoliza' (click)='buscarPolizasCliente(item.idCliente)'>
                   <i class='material-icons'>playlist_add</i>
                 </button>
               </td>
@@ -59,15 +59,49 @@
           <div class="form-group row">
             <div class='col-sm-12'>
               <label for="idTipoCubrimiento">Poliza a asignar</label>
+              <span style="display: flex;">
               <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="clientePoliza.idPoliza">
                 <option *ngFor="let item of listadoPolizas" [value]="item.idPoliza">
                   {{item.nombre}}
                 </option>
               </select>
-              <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
-              data-keyboard='false' data-target='#modalAsignarPoliza' (click)='AsignarPolizaCliente(null);'>
+              <button type='button' class='btn btn-outline-info btn-sm' (click)='asignarPolizaCliente();'>
               <i class='material-icons'>add</i>
             </button>
+          </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-primary">
+                    <tr>
+                      <th>Polizas asignadas al cliente</th>
+                      <th>Estado de la poliza</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listadoPolizasCliente">
+                      <td>
+                          {{item.nombrePoliza}}
+                      </td>
+                      <td class="text-center">
+                        {{(item.activo ? 'Activa':'Cancelada')}}
+                    </td>
+                      <td>
+                        <button type='button'
+                        [ngClass]="{'btn btn-success btn-sm': item.activo === true, 'btn btn-default btn-sm':item.activo === false }"
+                        (click)='cambiarEstadoPoliza(item)' data-toggle="tooltip"
+                        [title]="item.activo? 'Cancelar poliza' : 'Activar poliza'">
+                        <i class='material-icons'>power_settings_new</i>
+                      </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </form>

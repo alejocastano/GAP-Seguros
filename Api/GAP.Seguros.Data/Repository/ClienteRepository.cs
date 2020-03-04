@@ -34,8 +34,7 @@ namespace GAP.Seguros.Data.Repository
 
         public async Task<IEnumerable<Cliente>> GetAll()
         {
-            var clientes = await  context.Cliente.Include(x => x.ClientePoliza).ToListAsync();
-            return clientes;
+            return await context.Cliente.ToListAsync();
         }
 
         public Cliente Update(Cliente cliente)

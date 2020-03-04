@@ -1,7 +1,9 @@
 ﻿using GAP.Seguros.Data.Models;
 using GAP.Seguros.Data.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository
@@ -21,24 +23,62 @@ namespace GAP.Seguros.Data.Repository
             return clientePoliza;
         }
 
-        public ClientePoliza Delete(short idClientePoliza)
+        public async Task<ClientePoliza> Delete(ClientePoliza clientePoliza)
         {
-            throw new NotImplementedException();
+            context.ClientePoliza.Remove(clientePoliza);
+            await context.SaveChangesAsync();
+            return clientePoliza;
         }
 
-        public ClientePoliza Get(short idClientePoliza)
+        public async Task<ClientePoliza> Get(short idClientePoliza)
         {
-            throw new NotImplementedException();
+            return await context.ClientePoliza.FirstOrDefaultAsync(x => x.IdClientePoliza == idClientePoliza);
         }
 
-        public IEnumerable<ClientePoliza> GetAll()
+        public IEnumerable<PolizasClienteView> GetAll()
         {
-            throw new NotImplementedException();
+            var resultado = from a in context.ClientePoliza
+                            join b in context.Poliza on a.IdPoliza equals b.IdPoliza
+                            join c in context.Cliente on a.IdCliente equals c.IdCliente
+                            select new PolizasClienteView
+                            {
+                                IdClientePoliza = a.IdClientePoliza,
+                                IdPoliza = b.IdPoliza,
+                                NombrePoliza = b.Nombre,
+                                IdCliente = c.IdCliente,
+                                Identificacion = c.Identificacion,
+                                Nombre = c.Nombre,
+                                Activo = a.Activo
+                            };
+
+            return resultado;
         }
 
-        public ClientePoliza Update(ClientePoliza clientePoliza)
+        public async Task<IEnumerable<PolizasClienteView>> GetByCliente(int idCliente)
         {
-            throw new NotImplementedException();
+            var resultado = await (from a in context.ClientePoliza
+                             join b in context.Poliza on a.IdPoliza equals b.IdPoliza
+                             join c in context.Cliente on a.IdCliente equals c.IdCliente
+                             where a.IdCliente == idCliente
+                             select new PolizasClienteView
+                             {
+                                 IdClientePoliza = a.IdClientePoliza,
+                                 IdPoliza = b.IdPoliza,
+                                 NombrePoliza = b.Nombre,
+                                 IdCliente = c.IdCliente,
+                                 Identificacion = c.Identificacion,
+                                 Nombre = c.Nombre,
+                                 Activo = a.Activo
+                             }).ToListAsync();
+
+            return resultado;
+        }
+
+        public async Task<ClientePoliza> Update(ClientePoliza clientePoliza)
+        {
+            context.Entry(clientePoliza).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return clientePoliza;
         }
     }
 }

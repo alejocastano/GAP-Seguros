@@ -6,12 +6,11 @@ namespace GAP.Seguros.Data.Repository.Interfaces
 {
     public interface IClientePolizaRepository
     {
-        IEnumerable<ClientePoliza> GetAll();
-        ClientePoliza Get(short idClientePoliza);
+        IEnumerable<PolizasClienteView> GetAll();
+        Task<ClientePoliza> Get(short idClientePoliza);
+        Task<IEnumerable<PolizasClienteView>> GetByCliente(int idCliente);
         Task<ClientePoliza> Add(ClientePoliza clientePoliza);
-
-
-        ClientePoliza Update(ClientePoliza clientePoliza);
-        ClientePoliza Delete(short idClientePoliza);
+        Task<ClientePoliza> Update(ClientePoliza clientePoliza);
+        Task<ClientePoliza> Delete(ClientePoliza clientePoliza);
     }
 }
