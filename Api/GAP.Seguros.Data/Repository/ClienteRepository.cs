@@ -1,8 +1,10 @@
 ﻿using GAP.Seguros.Data.Models;
 using GAP.Seguros.Data.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository
 {
@@ -30,9 +32,10 @@ namespace GAP.Seguros.Data.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Cliente> GetAll()
+        public async Task<IEnumerable<Cliente>> GetAll()
         {
-            throw new NotImplementedException();
+            var clientes = await  context.Cliente.Include(x => x.ClientePoliza).ToListAsync();
+            return clientes;
         }
 
         public Cliente Update(Cliente cliente)

@@ -1,5 +1,6 @@
 ﻿using GAP.Seguros.Data.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository.Interfaces
 {
@@ -7,7 +8,9 @@ namespace GAP.Seguros.Data.Repository.Interfaces
     {
         IEnumerable<ClientePoliza> GetAll();
         ClientePoliza Get(short idClientePoliza);
-        ClientePoliza Add(ClientePoliza clientePoliza);
+        Task<ClientePoliza> Add(ClientePoliza clientePoliza);
+
+
         ClientePoliza Update(ClientePoliza clientePoliza);
         ClientePoliza Delete(short idClientePoliza);
     }

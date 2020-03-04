@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3>Listado de clientes</h3>
+    </div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPoliza">
+            Agregar una nueva poliza
+          </button>
+        </div>
+        <br>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-12">
+      <div class='table-responsive'>
+        <table class='table'>
+          <thead class='text-primary'>
+            <tr>
+              <th>Nombre del cliente</th>
+              <th>Identificacion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let item of listadoClientes'>
+
+              <td>{{item.nombre}}</td>
+              <td>{{item.identificacion}}</td>
+              <td class=''>
+                <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
+                  data-keyboard='false' data-target='#modalAsignarPoliza' (click)='this.clientePoliza.idCliente = item.idCliente'>
+                  <i class='material-icons'>playlist_add</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+<div class="modal fade" id="modalAsignarPoliza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Poliza</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class='needs-validation' #formPoliza='ngForm'>
+          <div class="form-group row">
+            <div class='col-sm-12'>
+              <label for="idTipoCubrimiento">Poliza a asignar</label>
+              <select class="form-control"  name="idTipoCubrimiento" [(ngModel)]="clientePoliza.idPoliza">
+                <option *ngFor="let item of listadoPolizas" [value]="item.idPoliza">
+                  {{item.nombre}}
+                </option>
+              </select>
+              <button type='button' class='btn btn-outline-info btn-sm' data-toggle='modal' data-backdrop='static'
+              data-keyboard='false' data-target='#modalAsignarPoliza' (click)='AsignarPolizaCliente(null);'>
+              <i class='material-icons'>add</i>
+            </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" >Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>

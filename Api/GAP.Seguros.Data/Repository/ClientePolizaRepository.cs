@@ -2,6 +2,7 @@
 using GAP.Seguros.Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GAP.Seguros.Data.Repository
 {
@@ -13,9 +14,11 @@ namespace GAP.Seguros.Data.Repository
         {
             this.context = context;
         }
-        public ClientePoliza Add(ClientePoliza clientePoliza)
+        public async Task<ClientePoliza> Add(ClientePoliza clientePoliza)
         {
-            throw new NotImplementedException();
+            context.ClientePoliza.Add(clientePoliza);
+            await context.SaveChangesAsync();
+            return clientePoliza;
         }
 
         public ClientePoliza Delete(short idClientePoliza)
